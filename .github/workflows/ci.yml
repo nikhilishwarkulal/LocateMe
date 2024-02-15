@@ -7,7 +7,7 @@
         - qa
         - uat
   jobs:
-    lint:
+    branch_name_lint:
       runs-on: ubuntu-latest
       steps:
         - name: Lint branch name
@@ -23,6 +23,7 @@
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
+      needs: [flutter_analyze]
       steps:
         - uses: actions/checkout@v4
         - uses: subosito/flutter-action@v2
