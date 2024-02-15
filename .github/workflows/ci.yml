@@ -23,7 +23,7 @@
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
-      needs: [flutter_analyze]
+      needs: [branch_name_lint]
       steps:
         - uses: actions/checkout@v4
         - uses: subosito/flutter-action@v2
