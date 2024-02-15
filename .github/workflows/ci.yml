@@ -7,6 +7,19 @@
         - qa
         - uat
   jobs:
+    lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Lint branch name
+          uses: lekterable/branchlint-action@2.0.0
+          with:
+            allowed: |
+              develop
+              master
+              qa
+              uat
+              /(feature|bugfix|integration|rnd)\w/i
+            errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
