@@ -38,6 +38,18 @@
           with:
             flutter-version: '3.16.9'
             channel: 'stable'
+        - name: Get latest app version
+          id: version
+          uses: MakeAndDevelop/firebase-latest-app-version@v1
+          with:
+            appId: ${{secrets.APP_ID}}
+            projectNumber: ${{secrets.FIREBASE_PROJECT_NUMBER}}
+            serviceAccount: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+
+        # For flutter use below to increment version:
+        - name: Update version in YAML
+          run: |
+            sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{ steps.version.outputs.newFlutterVersionString }}/' pubspec.yaml
         - run: flutter pub get
         - run: flutter clean
         - name: Build android apk
