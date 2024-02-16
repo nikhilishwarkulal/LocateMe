@@ -1,0 +1,117 @@
+name: Manual Release Dispatch
+on:
+  # This is a custom github action to generate a build manually
+  # whenever needed by the user.
+  workflow_dispatch:
+    inputs:
+      # Take version number from user usually version number manually
+      version:
+        description: 'Enter the version number (example: 1.0.0)'
+        required: true
+        default: '1.0.0'
+        type: string
+      # Take a build number manually from user
+      build_number:
+        description: 'Enter the build number (example: 1.0.0)'
+        required: true
+        default: 0
+        type: number
+      # Choose a testing group where the build should be deployed to
+      build_for:
+        description: 'Select the firebase testing group'
+        required: true
+        default: qa
+        type: choice
+        # These are the 3 testing groups available
+        options:
+          - prod
+          - qa
+          - uat
+jobs:
+  # [flutter_analyze] will first run flutter pub get and then flutter analyze
+  # also [flutter_analyze] task will run after [branch_name_lint].
+  flutter_analyze:
+    runs-on: ubuntu-latest
+    name: Run flutter analyze
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+        name: Check flutter version.
+        # check flutter version so pipeline will log this
+      - run: flutter --version
+        name: Run flutter pub get
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Run flutter analyze
+        # run flutter analyze to check if there is any analysis issues.
+      - run: flutter analyze
+  # [flutter_test] will first run all the flutter tests. both widget test
+  # and flutter test.
+  # also [flutter_test] task will run after [flutter_analyze].
+  flutter_test:
+    runs-on: ubuntu-latest
+    name: Run flutter test
+    needs: [flutter_analyze]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+        name: Run flutter pub get
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Start running flutter test
+        # start running flutter test
+      - run: flutter test
+  # [flutter_build_appbundle] will build flutter android app
+  # Once android app is built it will be deployed to firebase prod test group
+  # also [flutter_build_appbundle] task will run after [flutter_test].
+  flutter_build_appbundle:
+    runs-on: ubuntu-latest
+    name: Build and Release Prod (Android)
+    needs: [flutter_test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+      - name: Get latest app version
+        id: version
+        # this is to get the recent firbase build version and number
+        # then increment the version by 1 and build number by 1
+        uses: MakeAndDevelop/firebase-appversion@v1
+        with:
+          appId: ${{secrets.APP_ID}}
+          projectNumber: ${{secrets.FIREBASE_PROJECT_NUMBER}}
+          serviceAccount: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+        # this is to update the yaml file so that when deployed in firebase it will
+        # have new version and build number.
+        # note: this build number will not be pushed to the repo.
+      - name: Update version in YAML
+        run: |
+          sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{github.event.inputs.version}}+${{github.event.inputs.build_number}}/' pubspec.yaml
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Run flutter clean
+        # run flutter clean to start a fresh build
+      - run: flutter clean
+      - name: Build android apk
+        # build a release android apk
+        run: flutter build apk --release
+      - name: List Android apk folder
+        # list the flutter apk folder to so we can check the list
+        # in console
+        run: ls build/app/outputs/flutter-apk
+        # This is to deploy the release apk to firebase.
+      - uses: wzieba/Firebase-Distribution-Github-Action@v1
+        name: upload artifact to Firebase App Distribution
+        with:
+          appId: ${{secrets.APP_ID}}
+          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+          groups: ${{github.event.inputs.build_for}}
+          file: build/app/outputs/flutter-apk/app-release.apk
