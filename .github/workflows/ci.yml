@@ -7,6 +7,14 @@
         - qa
         - uat
   jobs:
+    gitlint:
+      runs-on: ubuntu-latest
+      name: GitLint
+      steps:
+        - name: Lint commits, branches, and pull requests
+          uses: aschbacd/gitlint-action@v1.1.1
+          with:
+            re-branch-name: /(develop|master|qa|uat|(feature|bugfix|integration|rnd)/\w/i)
     branch_name_lint:
       runs-on: ubuntu-latest
       name: Lint branch name
