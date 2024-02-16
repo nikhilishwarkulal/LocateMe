@@ -1,9 +1,32 @@
-name: Continues Deployment (PROD)
+name: Manual Release Dispatch
 on:
-  # when there is a push  for prod branch execute the jobs.
-  push:
-    branches:
-      - master
+  # This is a custom github action to generate a build manually
+  # whenever needed by the user.
+  workflow_dispatch:
+    inputs:
+      # Take version number from user usually version number manually
+      version:
+        description: 'Enter the version number (example: 1.0.0)'
+        required: true
+        default: '1.0.0'
+        type: string
+      # Take a build number manually from user
+      build_number:
+        description: 'Enter the build number (example: 1.0.0)'
+        required: true
+        default: 0
+        type: number
+      # Choose a testing group where the build should be deployed to
+      build_for:
+        description: 'Select the firebase testing group'
+        required: true
+        default: qa
+        type: choice
+        # These are the 3 testing groups available
+        options:
+          - prod
+          - qa
+          - uat
 jobs:
   # [flutter_analyze] will first run flutter pub get and then flutter analyze
   # also [flutter_analyze] task will run after [branch_name_lint].
@@ -71,7 +94,7 @@ jobs:
         # note: this build number will not be pushed to the repo.
       - name: Update version in YAML
         run: |
-          sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{ steps.version.outputs.newFlutterVersionString }}/' pubspec.yaml
+          sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{github.event.inputs.version}}+${{github.event.inputs.build_number}}/' pubspec.yaml
         # run flutter pub get to get all dependencies
       - run: flutter pub get
         name: Run flutter clean
@@ -90,5 +113,5 @@ jobs:
         with:
           appId: ${{secrets.APP_ID}}
           serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-          groups: prod
+          groups: ${{github.event.inputs.build_for}}
           file: build/app/outputs/flutter-apk/app-release.apk
