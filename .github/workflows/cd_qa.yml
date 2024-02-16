@@ -30,7 +30,7 @@
         - run: flutter test
     flutter_build_appbundle:
       runs-on: ubuntu-latest
-      name: Build flutter (Android)
+      name: Build and Release Qa (Android)
       needs: [flutter_test]
       steps:
         - uses: actions/checkout@v4
