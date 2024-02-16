@@ -2,7 +2,7 @@
   on:
     push:
       branches:
-        - qa
+        - master
   jobs:
     flutter_analyze:
       runs-on: ubuntu-latest
@@ -30,7 +30,7 @@
         - run: flutter test
     flutter_build_appbundle:
       runs-on: ubuntu-latest
-      name: Build and Release Qa (Android)
+      name: Build and Release Prod (Android)
       needs: [flutter_test]
       steps:
         - uses: actions/checkout@v4
@@ -61,5 +61,5 @@
           with:
             appId: ${{secrets.APP_ID}}
             serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-            groups: qa
+            groups: prod
             file: build/app/outputs/flutter-apk/app-release.apk
