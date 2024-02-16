@@ -6,7 +6,7 @@ on:
     inputs:
       # Take version number from user usually version number manually
       version:
-        description: 'Enter the version number (example: 1.0.0)'
+        description: 'Enter the version number (example: 1.2.13)'
         required: true
         default: '1.0.0'
         type: string
