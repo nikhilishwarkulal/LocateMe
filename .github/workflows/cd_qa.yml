@@ -38,11 +38,15 @@
           with:
             flutter-version: '3.16.9'
             channel: 'stable'
+        - name: Increment flutter build number
+          uses: BentEngbers/flutter-change-version@v1.0.3
+          with:
+            working-directory: ./root-flutter-folder
         - run: flutter pub get
         - run: flutter clean
         - name: Build android apk
           run: flutter build apk --debug
-        - name: Build android apk
+        - name: List Android apk folder
           run: ls build/app/outputs/flutter-apk
         - uses: wzieba/Firebase-Distribution-Github-Action@v1
           name: upload artifact to Firebase App Distribution
