@@ -1,11 +1,8 @@
   name: CI
   on:
-    pull_request:
+    push:
       branches:
-        - develop
-        - master
         - qa
-        - uat
   jobs:
     branch_name_lint:
       runs-on: ubuntu-latest
@@ -58,4 +55,14 @@
             channel: 'stable'
         - run: flutter pub get
         - run: flutter clean
-        - run: flutter build appbundle
+        - name: Build android apk
+          run: flutter build apk --debug
+        - name: Build android apk
+          run: ls build/app/outputs/flutter-apk
+        - uses: wzieba/Firebase-Distribution-Github-Action@v1
+          name: upload artifact to Firebase App Distribution
+          with:
+            appId: ${{secrets.APP_ID}}
+            serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+            groups: qa
+            file: build/app/outputs/flutter-apk/app-debug.apk
