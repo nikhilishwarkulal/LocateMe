@@ -12,9 +12,9 @@ on:
         type: string
       # Take a build number manually from user
       build_number:
-        description: 'Enter the build number (example: 1.0.0)'
+        description: 'Enter the build number (example: 12)'
         required: true
-        default: 0
+        default: 1
         type: number
       # Choose a testing group where the build should be deployed to
       build_for:
