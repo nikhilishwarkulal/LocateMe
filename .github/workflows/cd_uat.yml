@@ -1,30 +1,12 @@
   name: CI
   on:
-    pull_request:
+    push:
       branches:
-        - develop
-        - master
-        - qa
         - uat
   jobs:
-    branch_name_lint:
-      runs-on: ubuntu-latest
-      name: Lint branch name
-      steps:
-        - uses: actions/checkout@v4
-        - uses: lekterable/branchlint-action@2.0.0
-          with:
-            allowed: |
-              develop
-              master
-              qa
-              uat
-              /(feature|bugfix|integration|rnd)/\w/i
-            errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
-      needs: [branch_name_lint]
       steps:
         - uses: actions/checkout@v4
         - uses: subosito/flutter-action@v2
@@ -48,7 +30,7 @@
         - run: flutter test
     flutter_build_appbundle:
       runs-on: ubuntu-latest
-      name: Build flutter (Android)
+      name: Build and Release UAT (Android)
       needs: [flutter_test]
       steps:
         - uses: actions/checkout@v4
@@ -56,6 +38,26 @@
           with:
             flutter-version: '3.16.9'
             channel: 'stable'
+        - name: Get latest app version
+          id: version
+          uses: MakeAndDevelop/firebase-appversion@v1
+          with:
+            appId: ${{secrets.APP_ID}}
+            projectNumber: ${{secrets.FIREBASE_PROJECT_NUMBER}}
+            serviceAccount: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+        - name: Update version in YAML
+          run: |
+            sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{ steps.version.outputs.newFlutterVersionString }}/' pubspec.yaml
         - run: flutter pub get
         - run: flutter clean
-        - run: flutter build appbundle
+        - name: Build android apk
+          run: flutter build apk --release
+        - name: List Android apk folder
+          run: ls build/app/outputs/flutter-apk
+        - uses: wzieba/Firebase-Distribution-Github-Action@v1
+          name: upload artifact to Firebase App Distribution
+          with:
+            appId: ${{secrets.APP_ID}}
+            serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+            groups: uat
+            file: build/app/outputs/flutter-apk/app-release.apk
