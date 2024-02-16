@@ -7,18 +7,24 @@
         - qa
         - uat
   jobs:
-    gitlint:
+    branch_name_lint:
       runs-on: ubuntu-latest
-      name: GitLint
+      name: Lint branch name
       steps:
-        - name: Lint commits, branches, and pull requests
-          uses: aschbacd/gitlint-action@v1.1.1
+        - uses: actions/checkout@v4
+        - uses: lekterable/branchlint-action@2.0.0
           with:
-            re-branch-name: /(develop|master|qa|uat|(feature|bugfix|integration|rnd)/\w/i)
+            allowed: |
+              develop
+              master
+              qa
+              uat
+              /(feature|bugfix|integration|rnd)/\w/i
+            errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
-      needs: [gitlint]
+      needs: [branch_name_lint]
       steps:
         - uses: actions/checkout@v4
         - uses: subosito/flutter-action@v2
