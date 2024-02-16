@@ -1,61 +1,89 @@
-  name: CI
-  on:
-    pull_request:
-      branches:
-        - develop
-        - master
-        - qa
-        - uat
-  jobs:
-    branch_name_lint:
-      runs-on: ubuntu-latest
-      name: Lint branch name
-      steps:
-        - uses: actions/checkout@v4
-        - uses: lekterable/branchlint-action@2.0.0
-          with:
-            allowed: |
-              develop
-              master
-              qa
-              uat
-              /(feature|bugfix|integration|rnd)/\w/i
-            errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
-    flutter_analyze:
-      runs-on: ubuntu-latest
-      name: Run flutter analyze
-      needs: [branch_name_lint]
-      steps:
-        - uses: actions/checkout@v4
-        - uses: subosito/flutter-action@v2
-          with:
-            flutter-version: '3.16.9'
-            channel: 'stable'
-        - run: flutter --version
-        - run: flutter pub get
-        - run: flutter analyze
-    flutter_test:
-      runs-on: ubuntu-latest
-      name: Run flutter test
-      needs: [flutter_analyze]
-      steps:
-        - uses: actions/checkout@v4
-        - uses: subosito/flutter-action@v2
-          with:
-            flutter-version: '3.16.9'
-            channel: 'stable'
-        - run: flutter pub get
-        - run: flutter test
-    flutter_build_appbundle:
-      runs-on: ubuntu-latest
-      name: Build flutter (Android)
-      needs: [flutter_test]
-      steps:
-        - uses: actions/checkout@v4
-        - uses: subosito/flutter-action@v2
-          with:
-            flutter-version: '3.16.9'
-            channel: 'stable'
-        - run: flutter pub get
-        - run: flutter clean
-        - run: flutter build appbundle
+name: Continues Integration
+on:
+  # when there is a pull request for (develop,master,qa,uat) execute the jobs.
+  pull_request:
+    branches:
+      - develop
+      - master
+      - qa
+      - uat
+jobs:
+  # This will check for branches all the branch should have leading text
+  # starting from (feature/,bugfix/,integration/,rnd/,) except (develop,master,qa,uat)
+  branch_name_lint:
+    runs-on: ubuntu-latest
+    name: Lint branch name
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lekterable/branchlint-action@2.0.0
+        # This will check for branches all the branch should have leading text
+        # starting from (feature/,bugfix/,integration/,rnd/,) except (develop,master,qa,uat)
+        with:
+          allowed: |
+            develop
+            master
+            qa
+            uat
+            /(feature|bugfix|integration|rnd)/\w/i
+          errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
+  # [flutter_analyze] will first run flutter pub get and then flutter analyze
+  # also [flutter_analyze] task will run after [branch_name_lint].
+  flutter_analyze:
+    runs-on: ubuntu-latest
+    name: Run flutter analyze
+    needs: [branch_name_lint]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+        name: Check flutter version.
+        # check flutter version so pipeline will log this
+      - run: flutter --version
+        name: Run flutter pub get
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Run flutter analyze
+        # run flutter analyze to check if there is any analysis issues.
+      - run: flutter analyze
+  # [flutter_test] will first run all the flutter tests. both widget test
+  # and flutter test.
+  # also [flutter_test] task will run after [flutter_analyze].
+  flutter_test:
+    runs-on: ubuntu-latest
+    name: Run flutter test
+    needs: [flutter_analyze]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+        name: Run flutter pub get
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Start running flutter test
+        # start running flutter test
+      - run: flutter test
+  # [flutter_build_appbundle] will build flutter android app
+  # also [flutter_build_appbundle] task will run after [flutter_test].
+  flutter_build_appbundle:
+    runs-on: ubuntu-latest
+    name: Build flutter (Android)
+    needs: [flutter_test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+        name: Run flutter pub get
+        # run flutter pub get to get all dependencies
+      - run: flutter pub get
+        name: Run flutter clean
+        # run flutter clean to start a fresh build
+      - run: flutter clean
+        name: Run flutter build appbundle
+        # run flutter build appbundle to build a appbundle
+      - run: flutter build appbundle
