@@ -38,8 +38,6 @@
           with:
             flutter-version: '3.16.9'
             channel: 'stable'
-        - name: Increment flutter build number
-          uses: BentEngbers/flutter-change-version@v1.0.3
         - run: flutter pub get
         - run: flutter clean
         - name: Build android apk
