@@ -18,7 +18,7 @@
               master
               qa
               uat
-              /(feature|bugfix|integration|rnd)\w/i
+              /(feature|bugfix|integration|rnd)/\w/i
             errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
     flutter_analyze:
       runs-on: ubuntu-latest
