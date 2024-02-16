@@ -9,6 +9,7 @@
   jobs:
     branch_name_lint:
       runs-on: ubuntu-latest
+      name: Lint branch name
       steps:
         - name: Lint branch name
           uses: lekterable/branchlint-action@2.0.0
