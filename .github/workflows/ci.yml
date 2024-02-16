@@ -11,7 +11,7 @@
       runs-on: ubuntu-latest
       name: Lint branch name
       steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         - uses: lekterable/branchlint-action@2.0.0
           with:
             allowed: |
