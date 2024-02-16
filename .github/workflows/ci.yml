@@ -15,24 +15,10 @@
           uses: aschbacd/gitlint-action@v1.1.1
           with:
             re-branch-name: /(develop|master|qa|uat|(feature|bugfix|integration|rnd)/\w/i)
-    branch_name_lint:
-      runs-on: ubuntu-latest
-      name: Lint branch name
-      steps:
-        - uses: actions/checkout@v4
-        - uses: lekterable/branchlint-action@2.0.0
-          with:
-            allowed: |
-              develop
-              master
-              qa
-              uat
-              /(feature|bugfix|integration|rnd)/\w/i
-            errorMessage: 'Branch should be always starting with (feature|bugfix|integration|rnd) and followed by /'
     flutter_analyze:
       runs-on: ubuntu-latest
       name: Run flutter analyze
-      needs: [branch_name_lint]
+      needs: [gitlint]
       steps:
         - uses: actions/checkout@v4
         - uses: subosito/flutter-action@v2
