@@ -130,7 +130,7 @@ jobs:
     needs: [flutter_test]
     steps:
       - name: Support longpaths
-        run: git config --system core.longpaths true
+        run: git config --global core.longpaths true
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
