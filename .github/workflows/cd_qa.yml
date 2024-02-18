@@ -82,13 +82,6 @@ jobs:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
           new-string: "${{ secrets.API_KEY }}"
-      # Copy Manifest file from secret.
-#      - uses: DamianReeves/write-file-action@master
-#        with:
-#          path: android/app/src/main/AndroidManifest.xml
-#          contents: |
-#            ${{ secrets.ANDROID_MANIFEST }}
-#          write-mode: overwrite
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
@@ -158,12 +151,6 @@ jobs:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
           new-string: "${{ secrets.API_KEY }}"
-#      - uses: DamianReeves/write-file-action@master
-#        with:
-#          path: android/app/src/main/AndroidManifest.xml
-#          contents: |
-#            ${{ secrets.ANDROID_MANIFEST }}
-#          write-mode: overwrite
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
