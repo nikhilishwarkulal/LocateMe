@@ -52,6 +52,7 @@ jobs:
           contents: |
             ${{ secrets.ANDROID_MANIFEST }}
           write-mode: append
+      - run: cat android/app/src/main/AndroidManifest.xml
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
