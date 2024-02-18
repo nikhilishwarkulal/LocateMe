@@ -95,6 +95,18 @@ jobs:
       - name: Update version in YAML
         run: |
           sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{github.event.inputs.version}}+${{github.event.inputs.build_number}}/' pubspec.yaml
+        # Copy Manifest file from secret.
+      - name: Copy Manifest file
+        run: echo "${{ secrets.ANDROID_MANIFEST }}" > android/app/src/main/AndroidManifest.xml
+        # Copy Firebase Option from secret.
+      - name: Copy Firebase Option file
+        run: echo "${{ secrets.FIREBASE_OPTION }}" > firebase_options.dart
+        # Copy Google Service from secret.
+      - name: Copy Google Service file
+        run: echo "${{ secrets.GOOGLE_SERVICE_ANDROID }}" > android/app/google-services.json
+        # Copy Ios Plist from secret.
+      - name: Copy Ios Plist file
+        run: echo "${{ secrets.GOOGLE_SERVICE_IOS }}" > ios/Runner/GoogleService-Info.plist
         # run flutter pub get to get all dependencies
       - run: flutter pub get
         name: Run flutter clean
