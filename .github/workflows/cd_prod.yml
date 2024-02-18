@@ -21,38 +21,38 @@ jobs:
       - run: flutter --version
           
           # Copy Manifest file from secret.
-          - uses: DamianReeves/write-file-action@master
-            with:
-              path: android/app/src/main/AndroidManifest.xml
-              contents: |
-                ${{ secrets.ANDROID_MANIFEST }}
-              write-mode: overwrite
-            # Copy Firebase Option from secret.
-            name: Copy Firebase Option file
-          - uses: DamianReeves/write-file-action@master
-            with:
-              path: lib/firebase_options.dart
-              contents: |
-                ${{ secrets.FIREBASE_OPTION }}
-              write-mode: overwrite
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: android/app/src/main/AndroidManifest.xml
+          contents: |
+            ${{ secrets.ANDROID_MANIFEST }}
+          write-mode: overwrite
+        # Copy Firebase Option from secret.
+        name: Copy Firebase Option file
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: lib/firebase_options.dart
+          contents: |
+            ${{ secrets.FIREBASE_OPTION }}
+          write-mode: overwrite
 
-            # Copy Google Service from secret.
-            name: Copy Google Service file
-          - uses: DamianReeves/write-file-action@master
-            with:
-              path: android/app/google-services.json
-              contents: |
-                ${{ secrets.GOOGLE_SERVICE_ANDROID }}
-              write-mode: overwrite
+        # Copy Google Service from secret.
+        name: Copy Google Service file
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: android/app/google-services.json
+          contents: |
+            ${{ secrets.GOOGLE_SERVICE_ANDROID }}
+          write-mode: overwrite
 
-            # Copy Ios Plist from secret.
-            name: Copy Ios Plist file
-          - uses: DamianReeves/write-file-action@master
-            with:
-              path: ios/Runner/GoogleService-Info.plist
-              contents: |
-                ${{ secrets.GOOGLE_SERVICE_IOS }}
-              write-mode: overwrite
+        # Copy Ios Plist from secret.
+        name: Copy Ios Plist file
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: ios/Runner/GoogleService-Info.plist
+          contents: |
+            ${{ secrets.GOOGLE_SERVICE_IOS }}
+          write-mode: overwrite
         name: Run flutter pub get
         # run flutter pub get to get all dependencies
       - run: flutter pub get
