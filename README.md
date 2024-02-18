@@ -22,9 +22,10 @@ Then open the flutter project in Android studio or Visual studio code. Once done
 Go to manifest file of the project (`android/app/src/main/AndroidManifest.xml`).
 and then change the below code:
 ```xml
- <meta-data android:name="com.google.android.geo.API_KEY" android:value=""/>
+ <meta-data android:name="com.google.android.geo.API_KEY"
+    android:value="GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH"/>
 ```
-change `android:value=""` with your new Key.
+change `android:value="GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH"` with your new Key.
 
 Get a new API key at https://cloud.google.com/maps-platform/.
 
