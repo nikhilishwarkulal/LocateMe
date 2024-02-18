@@ -54,7 +54,7 @@ jobs:
             name: Copy Firebase Option file
           - uses: DamianReeves/write-file-action@master
             with:
-              path: firebase_options.dart
+              path: lib/firebase_options.dart
               contents: |
                 ${{ secrets.FIREBASE_OPTION }}
               write-mode: overwrite
@@ -107,7 +107,7 @@ jobs:
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
         with:
-          path: firebase_options.dart
+          path: lib/firebase_options.dart
           contents: |
             ${{ secrets.FIREBASE_OPTION }}
           write-mode: overwrite
@@ -177,7 +177,7 @@ jobs:
             name: Copy Firebase Option file
           - uses: DamianReeves/write-file-action@master
             with:
-              path: firebase_options.dart
+              path: lib/firebase_options.dart
               contents: |
                 ${{ secrets.FIREBASE_OPTION }}
               write-mode: overwrite
