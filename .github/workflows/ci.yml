@@ -41,6 +41,18 @@ jobs:
         name: Check flutter version.
         # check flutter version so pipeline will log this
       - run: flutter --version
+        # Copy Manifest file from secret.
+        name: Copy Manifest file
+      - run: echo "${{ secrets.ANDROID_MANIFEST }}" > android/app/src/main/AndroidManifest.xml
+        # Copy Firebase Option from secret.
+        name: Copy Firebase Option file
+      - run: echo "${{ secrets.FIREBASE_OPTION }}" > firebase_options.dart
+        # Copy Google Service from secret.
+        name: Copy Google Service file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_ANDROID }}" > android/app/google-services.json
+        # Copy Ios Plist from secret.
+        name: Copy Ios Plist file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_IOS }}" > ios/Runner/GoogleService-Info.plist
         name: Run flutter pub get
         # run flutter pub get to get all dependencies
       - run: flutter pub get
@@ -60,6 +72,18 @@ jobs:
         with:
           flutter-version: '3.16.9'
           channel: 'stable'
+        # Copy Manifest file from secret.
+        name: Copy Manifest file
+      - run: echo "${{ secrets.ANDROID_MANIFEST }}" > android/app/src/main/AndroidManifest.xml
+        # Copy Firebase Option from secret.
+        name: Copy Firebase Option file
+      - run: echo "${{ secrets.FIREBASE_OPTION }}" > firebase_options.dart
+        # Copy Google Service from secret.
+        name: Copy Google Service file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_ANDROID }}" > android/app/google-services.json
+        # Copy Ios Plist from secret.
+        name: Copy Ios Plist file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_IOS }}" > ios/Runner/GoogleService-Info.plist
         name: Run flutter pub get
         # run flutter pub get to get all dependencies
       - run: flutter pub get
@@ -78,6 +102,18 @@ jobs:
         with:
           flutter-version: '3.16.9'
           channel: 'stable'
+        # Copy Manifest file from secret.
+        name: Copy Manifest file
+      - run: echo "${{ secrets.ANDROID_MANIFEST }}" > android/app/src/main/AndroidManifest.xml
+        # Copy Firebase Option from secret.
+        name: Copy Firebase Option file
+      - run: echo "${{ secrets.FIREBASE_OPTION }}" > firebase_options.dart
+        # Copy Google Service from secret.
+        name: Copy Google Service file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_ANDROID }}" > android/app/google-services.json
+        # Copy Ios Plist from secret.
+        name: Copy Ios Plist file
+      - run: echo "${{ secrets.GOOGLE_SERVICE_IOS }}" > ios/Runner/GoogleService-Info.plist
         name: Run flutter pub get
         # run flutter pub get to get all dependencies
       - run: flutter pub get
