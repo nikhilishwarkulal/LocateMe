@@ -1,7 +1,7 @@
 # Locate Me
 ## _Naviagte between cordinates smoothly_
 
-[![N|Solid](https://luckyapp.in/test/screen_Record.gif)](https://luckyapp.in/test/screen_Record.gif)
+![Alt Text](https://luckyapp.in/test/screen_Record.gif)
 
 ## Setup
 Make sure you have flutter SDK configured
