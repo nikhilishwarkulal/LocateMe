@@ -138,7 +138,7 @@ jobs:
           serviceAccount: ${{secrets.CREDENTIAL_FILE_CONTENT}}
         # this is to update the yaml file so that when deployed in firebase it will
         # have new version and build number.
-        # note: this build number will not be pushed to the repo.
+        # note: this build number will not be pushed to the  repo.
       - name: Update version in YAML
         run: |
           sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{ steps.version.outputs.newFlutterVersionString }}/' pubspec.yaml
