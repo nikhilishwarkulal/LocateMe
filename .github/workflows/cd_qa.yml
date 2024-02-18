@@ -19,13 +19,18 @@ jobs:
         name: Check flutter version.
         # check flutter version so pipeline will log this
       - run: flutter --version
-      # Copy Manifest file from secret.
-      - uses: DamianReeves/write-file-action@master
+      - uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
-          path: android/app/src/main/AndroidManifest.xml
-          contents: |
-            ${{ secrets.ANDROID_MANIFEST }}
-          write-mode: overwrite
+          file: android/app/src/main/AndroidManifest.xml
+          old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
+          new-string: "${{ secrets.API_KEY }}"
+      # Copy Manifest file from secret.
+#      - uses: DamianReeves/write-file-action@master
+#        with:
+#          path: android/app/src/main/AndroidManifest.xml
+#          contents: |
+#            ${{ secrets.ANDROID_MANIFEST }}
+#          write-mode: overwrite
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
@@ -72,13 +77,18 @@ jobs:
           flutter-version: '3.16.9'
           channel: 'stable'
 
-      # Copy Manifest file from secret.
-      - uses: DamianReeves/write-file-action@master
+      - uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
-          path: android/app/src/main/AndroidManifest.xml
-          contents: |
-            ${{ secrets.ANDROID_MANIFEST }}
-          write-mode: overwrite
+          file: android/app/src/main/AndroidManifest.xml
+          old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
+          new-string: "${{ secrets.API_KEY }}"
+      # Copy Manifest file from secret.
+#      - uses: DamianReeves/write-file-action@master
+#        with:
+#          path: android/app/src/main/AndroidManifest.xml
+#          contents: |
+#            ${{ secrets.ANDROID_MANIFEST }}
+#          write-mode: overwrite
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
@@ -143,12 +153,17 @@ jobs:
           sed -i 's/version: [0-9]*\.[0-9]*\.[0-9]*+[0-9]*/version: ${{ steps.version.outputs.newFlutterVersionString }}/' pubspec.yaml
           
           # Copy Manifest file from secret.
-      - uses: DamianReeves/write-file-action@master
+      - uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
-          path: android/app/src/main/AndroidManifest.xml
-          contents: |
-            ${{ secrets.ANDROID_MANIFEST }}
-          write-mode: overwrite
+          file: android/app/src/main/AndroidManifest.xml
+          old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
+          new-string: "${{ secrets.API_KEY }}"
+#      - uses: DamianReeves/write-file-action@master
+#        with:
+#          path: android/app/src/main/AndroidManifest.xml
+#          contents: |
+#            ${{ secrets.ANDROID_MANIFEST }}
+#          write-mode: overwrite
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
