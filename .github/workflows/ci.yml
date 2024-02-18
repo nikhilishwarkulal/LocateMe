@@ -49,15 +49,6 @@ jobs:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
           new-string: "${{ secrets.API_KEY }}"
-#        # Copy Manifest file from secret.
-#        name: Copy Manifest file
-#      - uses: DamianReeves/write-file-action@master
-#        with:
-#          path: android/app/src/main/AndroidManifest.xml
-#          contents: |
-#            ${{ secrets.ANDROID_MANIFEST }}
-#          write-mode: overwrite
-#      - run: cat android/app/src/main/AndroidManifest.xml
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
@@ -111,15 +102,6 @@ jobs:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
           new-string: "${{ secrets.API_KEY }}"
-#        # Copy Manifest file from secret.
-#        name: Copy Manifest file
-#      - uses: DamianReeves/write-file-action@master
-#        with:
-#          path: android/app/src/main/AndroidManifest.xml
-#          contents: |
-#            ${{ secrets.ANDROID_MANIFEST }}
-#          write-mode: overwrite
-#      - run: cat android/app/src/main/AndroidManifest.xml
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
@@ -171,15 +153,6 @@ jobs:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
           new-string: "${{ secrets.API_KEY }}"
-#        # Copy Manifest file from secret.
-#        name: Copy Manifest file
-#      - uses: DamianReeves/write-file-action@master
-#        with:
-#          path: android/app/src/main/AndroidManifest.xml
-#          contents: |
-#            ${{ secrets.ANDROID_MANIFEST }}
-#          write-mode: overwrite
-#      - run: cat android/app/src/main/AndroidManifest.xml
         # Copy Firebase Option from secret.
         name: Copy Firebase Option file
       - uses: DamianReeves/write-file-action@master
