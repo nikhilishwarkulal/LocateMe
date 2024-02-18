@@ -1,7 +1,7 @@
 # Locate Me
 ## _Naviagte between cordinates smoothly_
 
-![Alt Text](https://luckyapp.in/test/screen_Record.gif)
+<img src="/screen_record.gif?raw=true" width="200px">
 
 ## Setup
 Make sure you have flutter SDK configured
@@ -34,6 +34,13 @@ In your project got to `android/app/google-services.json` and replace it with yo
 
 Add Firebase to your Android project https://firebase.google.com/docs/android/setup
 
+Firebase App Distribution "testers and Group" should have 3 groups. "Github Action Jobs deployes build based on these groups.
+```sh
+qa
+uat
+prod
+```
+
 Then go to `lib/firebase_option.dart` configure `FirebaseOptions`  with your new configuration as given in below code.
 
 
@@ -54,6 +61,3 @@ You can find all this information inside `android/app/google-services.json` chec
 | project_number | messagingSenderId |
 | project_id | projectId |
 | storage_bucket | storageBucket |
-
-
-
