@@ -1,7 +1,7 @@
 # Locate Me
 ## _Naviagte between cordinates smoothly_
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
+[![N|Solid](https://luckyapp.in/test/screen_Record.gif)](https://luckyapp.in/test/screen_Record.gif)
 
 ## Setup
 Make sure you have flutter SDK configured
@@ -38,12 +38,12 @@ Then go to `lib/firebase_option.dart` configure `FirebaseOptions`  with your new
 
 ```dart
  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIza***************4GY',
-    appId: '1:220815*************cbb02b',
-    messagingSenderId: '2208*****2354',
-    projectId: 'locate-me-***ad',
-    storageBucket: 'locate-me-***ad.appspot.com',
-  );
+  apiKey: 'AIza***************4GY',
+  appId: '1:220815*************cbb02b',
+  messagingSenderId: '2208*****2354',
+  projectId: 'locate-me-***ad',
+  storageBucket: 'locate-me-***ad.appspot.com',
+);
 ```
 You can find all this information inside `android/app/google-services.json` check the corresponding keys in below table.
 | google-services.json | firebase_option.dart |
