@@ -44,7 +44,7 @@ jobs:
         name: Check flutter version.
         # check flutter version so pipeline will log this
       - run: flutter --version
-        uses: MathieuSoysal/replace-string-in-file@v1.0.0
+      - uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
           file: android/app/src/main/AndroidManifest.xml
           old-string: GOOGLE_API_KEY_CHANGE_HERE_TO_RUN_BUT_DO_NOT_PUSH
