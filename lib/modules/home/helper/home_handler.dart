@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locateme/common/theming/app_theme.dart';
+import 'package:locateme/get_it.dart';
 import 'package:locateme/modules/home/helper/home_helper.dart';
 import 'package:locateme/modules/home/home_bloc/home_bloc.dart';
 import 'package:locateme/modules/home/home_bloc/home_event.dart';
@@ -18,7 +21,7 @@ abstract class HomeStateHandler extends State<HomeScreen> with HomeHelper {
       DraggableScrollableController();
 
   /// [homeScrollBloc] to show step based ui in home page
-  final HomeScrollBloc homeScrollBloc = HomeScrollBloc();
+  final HomeScrollBloc homeScrollBloc = getIt<HomeScrollBloc>();
 
   /// [homeScreenBloc] handles home Screen Ui data
   final HomeScreenBloc homeScreenBloc = HomeScreenBloc();
@@ -113,17 +116,25 @@ abstract class HomeStateHandler extends State<HomeScreen> with HomeHelper {
 
   /// [runPeriodicCheck] when scrolling happens these continuously checks
   /// for screen state change. and updates UI accordingly.
-  void runPeriodicCheck() {
+  Future<void> runPeriodicCheck() async {
     double screenHeight = getScreenHeight();
     double bottomPadding = getBottomPadding();
     double topPadding = getTopPadding();
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      homeScrollBloc.add(HomeScrollEventCaptured(
-        scrollableSizeValue: draggableScrollController.size,
-        screenSize: screenHeight,
-        bottomPadding: bottomPadding,
-        topPadding: topPadding,
-      ));
-    });
+
+    homeScrollBloc.add(HomeScrollEventUpdate(
+      scrollableSizeValue: () => draggableScrollController.size,
+      screenSize: screenHeight,
+      bottomPadding: bottomPadding,
+      topPadding: topPadding,
+    ));
+    if (context.theme.brightness == Brightness.dark) {
+      var darkMapStyle = await rootBundle.loadString('assets/maps/dark.json');
+      var controller = await mapController.future;
+      controller.setMapStyle(darkMapStyle);
+    } else {
+      var lightMapStyle = await rootBundle.loadString('assets/maps/light.json');
+      var controller = await mapController.future;
+      controller.setMapStyle(lightMapStyle);
+    }
   }
 }

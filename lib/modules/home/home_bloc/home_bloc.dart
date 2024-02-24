@@ -6,12 +6,18 @@ import 'package:locateme/domain/get_location/models/location_event_data.dart';
 import 'package:locateme/domain/get_location/usecases/location_event_use_cases.dart';
 import 'package:locateme/get_it.dart';
 
+import '../../../common/bloc_initalizer.dart';
 import 'home_event.dart';
 import 'home_state.dart';
 
 /// [HomeScreenBloc] will handle screen data
-class HomeScreenBloc extends Bloc<HomeEvent, HomeState> {
+class HomeScreenBloc extends Bloc<HomeEvent, HomeState> with BlocInitialize {
   HomeScreenBloc() : super(const HomeStateLoading(listOfLocations: [])) {
+    initialize();
+  }
+
+  @override
+  void initialize() {
     on<HomeEventLoadData>(_onLoadMainPage);
     on<HomeEventOnSelect>(_onHomeEventOnSelect);
   }
