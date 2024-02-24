@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/common/widgets/app_star_rating.dart';
 import 'package:locateme/modules/home/view_model/location_view_model.dart';
 
@@ -35,7 +34,8 @@ class AppImageCardWithText extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: AppColors.kPrimaryTextColor.withOpacity(_boxShadowOpacity),
+            color: context.theme.appColors.kPrimaryDark
+                .withOpacity(_boxShadowOpacity),
             blurRadius: _boxShadowBlurRadius,
             offset: _boxShadowOffset,
           )
@@ -44,7 +44,7 @@ class AppImageCardWithText extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(_borderRadius),
           child: Container(
-            color: AppColors.kCardBgColor,
+            color: context.theme.appColors.kCardBgColor,
             child: Column(
               children: [
                 SizedBox(
@@ -60,8 +60,8 @@ class AppImageCardWithText extends StatelessWidget {
                     viewModel.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: _maxLines,
-                    style: AppTextStyle.k12Regular.copyWith(
-                      color: AppColors.kPrimaryDark,
+                    style: context.theme.appTextStyle.k12Regular.copyWith(
+                      color: context.theme.appColors.kPrimaryTextColor,
                     ),
                   ),
                 ),

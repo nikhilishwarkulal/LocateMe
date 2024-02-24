@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locateme/common/app_colors.dart';
 import 'package:locateme/common/app_routes.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,14 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: RichText(
                   text: TextSpan(
                     text: appLocalization.locate,
-                    style: AppTextStyle.k32Medium.copyWith(
-                      color: AppColors.kPrimary,
+                    style: context.theme.appTextStyle.k32Medium.copyWith(
+                      color: context.theme.appColors.kPrimary,
                     ),
                     children: [
                       TextSpan(
                         text: appLocalization.me,
-                        style: AppTextStyle.k32Medium.copyWith(
-                          color: AppColors.kPrimaryDark,
+                        style: context.theme.appTextStyle.k32Medium.copyWith(
+                          color: context.theme.appColors.kSplashTrailingText,
                         ),
                       ),
                     ],

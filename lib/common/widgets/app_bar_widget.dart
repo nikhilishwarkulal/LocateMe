@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 
 const double _appBarPadding = 18;
 const double _appBarHeight = 56;
@@ -36,15 +35,18 @@ class AppBarWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: AppTextStyle.k18Regular.copyWith(
-                color: AppColors.kPrimaryTextColor,
+              style: context.theme.appTextStyle.k18Regular.copyWith(
+                color: context.theme.appColors.kPrimaryTextColor,
               ),
             ),
             const Spacer(),
             GestureDetector(
               onTap: dropDownButton,
               behavior: HitTestBehavior.translucent,
-              child: SvgPicture.asset(_dropDownImage),
+              child: SvgPicture.asset(
+                _dropDownImage,
+                color: context.theme.appColors.kPrimaryTextColor,
+              ),
             )
           ],
         ),

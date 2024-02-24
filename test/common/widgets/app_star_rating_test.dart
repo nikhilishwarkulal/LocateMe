@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:locateme/common/widgets/app_star_rating.dart';
 
 void main() {
-  testWidgets('Check for title and svgpicture', (WidgetTester tester) async {
+  testWidgets('Check for Star rating widget', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MaterialApp(
       home: AppStarRating(

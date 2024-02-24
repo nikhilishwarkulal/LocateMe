@@ -1,9 +1,8 @@
 import 'package:either_dart/either.dart';
-
-import '../../../core/exception/exception.dart';
-import '../models/location_argument_data.dart';
-import '../models/location_event_data.dart';
-import '../repositories/location_event_repository_impl.dart';
+import 'package:locateme/core/exception/exception.dart';
+import 'package:locateme/domain/get_location/models/location_argument_data.dart';
+import 'package:locateme/domain/get_location/models/location_event_data.dart';
+import 'package:locateme/domain/get_location/repositories/location_event_repository_impl.dart';
 
 /// Interface for [LocationEventUseCases] cases.
 abstract class LocationEventUseCases {

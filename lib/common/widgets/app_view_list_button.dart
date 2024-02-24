@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/main.dart';
 
 const double _height = 48;
-const double _width = 156;
 const double _boxShadowOpacity = 0.4;
 const Offset _boxShadowOffset = Offset(0, 0);
 const double _boxShadowBlurRadius = 4;
@@ -28,13 +26,14 @@ class AppViewListButton extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       child: Container(
         height: _height,
-        width: _width,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_borderRadius),
-          color: AppColors.kWhiteColor,
+          color: context.theme.appColors.kWhiteColor,
           boxShadow: [
             BoxShadow(
-              color: AppColors.kPrimaryTextColor.withOpacity(_boxShadowOpacity),
+              color: context.theme.appColors.kPrimaryTextColor
+                  .withOpacity(_boxShadowOpacity),
               blurRadius: _boxShadowBlurRadius,
               offset: _boxShadowOffset,
             )
@@ -42,19 +41,22 @@ class AppViewListButton extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
               _menuImage,
               width: _imageSize,
               height: _imageSize,
+              color: context.theme.appColors.kButtonColor,
             ),
             const SizedBox(
               width: _spacing,
             ),
             Text(
               appLocalization.viewList,
-              style: AppTextStyle.k16Medium
-                  .copyWith(color: AppColors.kButtonColor),
+              style: context.theme.appTextStyle.k16Medium.copyWith(
+                color: context.theme.appColors.kButtonColor,
+              ),
             )
           ],
         ),

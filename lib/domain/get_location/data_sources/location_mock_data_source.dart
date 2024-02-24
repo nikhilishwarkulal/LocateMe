@@ -7,10 +7,6 @@ class LocationMockDataSourceImpl implements LocationDataSource {
   /// Api response to user.
   LocationMockDataSourceImpl();
 
-  static String getMockData() {
-    return _responseMock;
-  }
-
   /// Mock response given to The mobile screen.
   /// [Future<LocationData>] to handle the Failure or result data.
   @override
