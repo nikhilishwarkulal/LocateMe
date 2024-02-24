@@ -22,7 +22,7 @@ void main() {
     await tester.pumpAndSettle();
     // Verify that there is titleerror widget
     expect(find.text('titleerror'), findsOneWidget);
-    // There should be 5 SvgPicture as there is 5 stars
+    // There should be 0 SvgPicture as there is 0 stars
     expect(find.byType(SvgPicture), findsNWidgets(0));
   });
 }

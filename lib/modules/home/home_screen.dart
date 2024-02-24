@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/modules/home/helper/home_handler.dart';
 import 'package:locateme/modules/home/home_bloc/home_bloc.dart';
 import 'package:locateme/modules/home/home_bloc/home_event.dart';
@@ -10,8 +11,6 @@ import 'package:locateme/modules/home/widgets/home_appbar_container.dart';
 import 'package:locateme/modules/home/widgets/home_list_button_widget.dart';
 import 'package:locateme/modules/home/widgets/home_map_view.dart';
 import 'package:locateme/modules/home/widgets/home_transistion_widget.dart';
-
-import '../../common/app_colors.dart';
 
 const double _boxShadowOpacity = 0.4;
 const Offset _boxShadowOffset = Offset(0, 0);
@@ -43,7 +42,7 @@ class _HomeScreenState extends HomeStateHandler {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       /// this will check for scroll
-      runPeriodicCheck();
+      await runPeriodicCheck();
     });
   }
 
@@ -143,8 +142,8 @@ class _HomeScreenState extends HomeStateHandler {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color:
-                    AppColors.kPrimaryTextColor.withOpacity(_boxShadowOpacity),
+                color: context.theme.appColors.kPrimaryDark
+                    .withOpacity(_boxShadowOpacity),
                 blurRadius: _boxShadowBlurRadius,
                 offset: _boxShadowOffset,
               )
@@ -156,7 +155,7 @@ class _HomeScreenState extends HomeStateHandler {
                 ? borderRadiusZero
                 : borderRadiusEight,
             child: Container(
-              color: Colors.white,
+              color: context.theme.appColors.kWhiteColor,
               child: BlocConsumer<HomeScreenBloc, HomeState>(
                 bloc: homeScreenBloc,
                 listenWhen: (previous, current) {
@@ -189,5 +188,10 @@ class _HomeScreenState extends HomeStateHandler {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

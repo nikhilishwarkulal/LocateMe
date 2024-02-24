@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/common/widgets/app_image_card_widget.dart';
 import 'package:locateme/main.dart';
 import 'package:locateme/modules/home/view_model/location_view_model.dart';
@@ -38,7 +37,7 @@ class ImageCardList extends StatelessWidget {
             width: _width,
             height: _height,
             decoration: BoxDecoration(
-              color: AppColors.kStarGoldDisableColor,
+              color: context.theme.appColors.kStarGoldDisableColor,
               borderRadius: BorderRadius.circular(_height),
             ),
           ),
@@ -47,8 +46,9 @@ class ImageCardList extends StatelessWidget {
           padding: _header,
           child: Text(
             appLocalization.locations,
-            style: AppTextStyle.k16Medium
-                .copyWith(color: AppColors.kPrimaryTextColor),
+            style: context.theme.appTextStyle.k16Medium.copyWith(
+              color: context.theme.appColors.kPrimaryTextColor,
+            ),
           ),
         ),
         Padding(

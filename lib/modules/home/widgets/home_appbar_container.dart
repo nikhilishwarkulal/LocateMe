@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/common/widgets/app_bar_widget.dart';
 import 'package:locateme/main.dart';
 
@@ -17,7 +18,7 @@ class HomeAppbarContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.theme.appColors.kWhiteColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(_boxShadowOpacity),

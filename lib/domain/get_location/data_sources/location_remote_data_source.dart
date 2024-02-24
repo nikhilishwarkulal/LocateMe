@@ -14,7 +14,7 @@ abstract class LocationDataSource {
 
 /// [LocationRemoteDataSourceImpl] will contain the [LocationDataSource] implementation.
 class LocationRemoteDataSourceImpl implements LocationDataSource {
-  CustomDio? customDio;
+  late CustomDio customDio;
 
   LocationRemoteDataSourceImpl({CustomDio? dio}) {
     if (dio == null) {
@@ -32,13 +32,10 @@ class LocationRemoteDataSourceImpl implements LocationDataSource {
   Future<LocationData> getLocationData(
       {required LocationArgumentModel argumentModel}) async {
     try {
-      final String? result = await customDio?.callApiPost(
+      final String result = await customDio.callApiPost(
         customUrl: "${AppConstants.baseUrl}profile/login",
         jsonDataAsMap: argumentModel.toMap(),
       );
-      if (result == null) {
-        throw ServerException.failure();
-      }
       return LocationData.fromRawJson(result);
     } catch (ex) {
       throw ServerException.failure();

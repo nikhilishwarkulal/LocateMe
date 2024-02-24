@@ -1,0 +1,3 @@
+ mixin BlocInitialize{
+   void initialize();
+}
