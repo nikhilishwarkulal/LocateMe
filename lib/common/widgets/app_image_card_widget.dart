@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/modules/home/view_model/location_view_model.dart';
 
 const double _width = 100;
@@ -37,7 +36,8 @@ class AppImageCardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: AppColors.kPrimaryTextColor.withOpacity(_boxShadowOpacity),
+            color: context.theme.appColors.kPrimaryDark
+                .withOpacity(_boxShadowOpacity),
             blurRadius: _boxShadowBlurRadius,
             offset: _boxShadowOffset,
           )
@@ -61,9 +61,9 @@ class AppImageCardWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        AppColors.kImageStartColor,
-                        AppColors.kImageMiddleColor,
-                        AppColors.kImageEndColor,
+                        context.theme.appColors.kImageStartColor,
+                        context.theme.appColors.kImageMiddleColor,
+                        context.theme.appColors.kImageEndColor,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -78,8 +78,9 @@ class AppImageCardWidget extends StatelessWidget {
                           locationViewModel.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: _maxLines,
-                          style: AppTextStyle.k12Regular
-                              .copyWith(color: AppColors.kWhiteColor),
+                          style: context.theme.appTextStyle.k12Regular.copyWith(
+                            color: Colors.white,
+                          ),
                         )),
                   ),
                 ),

@@ -6,7 +6,8 @@ import 'package:locateme/common/widgets/app_view_list_button.dart';
 import 'package:locateme/main.dart';
 
 void main() {
-  testWidgets('Check for title and svgpicture', (WidgetTester tester) async {
+  testWidgets('Check for AppViewListButton testing',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,

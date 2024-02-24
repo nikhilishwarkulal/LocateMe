@@ -11,7 +11,7 @@ mixin HomeHelper {
     return height * maxSheetValue / screenHeight;
   }
 
-  /// [getMinSizeDraggableSheetValue] this is whe draggable sheet will not
+  /// [getMinSizeDraggableSheetValue] this is where draggable sheet will not
   /// be seen
   double getMinSizeDraggableSheetValue(double screenHeight) {
     return convertSizeToDraggableSheetValue(

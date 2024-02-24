@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locateme/common/app_colors.dart';
-import 'package:locateme/common/app_text_style.dart';
+import 'package:locateme/common/theming/app_theme.dart';
 import 'package:locateme/common/widgets/app_image_card_horizontal.dart';
 import 'package:locateme/modules/home/view_model/location_view_model.dart';
 
@@ -46,8 +45,9 @@ class ImageCardWithHorizontalFullList extends StatelessWidget {
           padding: _header,
           child: Text(
             "",
-            style: AppTextStyle.k16Medium
-                .copyWith(color: AppColors.kPrimaryTextColor),
+            style: context.theme.appTextStyle.k16Medium.copyWith(
+              color: context.theme.appColors.kPrimaryTextColor,
+            ),
           ),
         ),
         Padding(
